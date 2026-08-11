@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/vc/(.*)",
+      "source": "/vc/(.*\\..*)",
       "destination": "/$1"
     },
     {
