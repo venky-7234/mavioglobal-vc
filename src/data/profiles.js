@@ -1,59 +1,52 @@
 export const profiles = {
   mahendra: {
-    id: 'mahendra',
-    name: 'Mahendra',
-    designation: '[DESIGNATION_PLACEHOLDER]',
-    photo: '[PHOTO_URL_PLACEHOLDER]',
-    phone: '[PHONE_NUMBER_PLACEHOLDER]',
-    email: 'mahendra@mavioglobal.com',
-    whatsapp: '[WHATSAPP_NUMBER_PLACEHOLDER]',
-    linkedin: '[LINKEDIN_URL_PLACEHOLDER]',
-    company: 'Mavio Global',
-    about: '[ABOUT_ME_PLACEHOLDER]',
-    
-    // UI specific fields for current design
-    initial: 'M',
-    gradient: 'from-blue-500 to-cyan-500',
-    textColor: 'text-blue-600',
-    iconColor: 'text-blue-400',
-    btnColor: 'bg-blue-600 hover:bg-blue-700'
+    name: "MAHENDRA REDDY",
+    designation: "FOUNDER & CEO",
+    bio: "",
+    profileImage: "/images/mahendra.jpg",
+    signatureImage: "",
+    phone: "+1234567890",
+    email: "mahendra@mavioglobal.com",
+    whatsapp: "+1234567890",
+    linkedin: "https://linkedin.com",
+    instagram: "https://instagram.com",
+    facebook: "",
+    twitter: "https://x.com",
+    youtube: "https://youtube.com",
+    website: "https://www.mavioglobal.com"
   },
+
   vinushna: {
-    id: 'vinushna',
-    name: 'Vinushna',
-    designation: '[DESIGNATION_PLACEHOLDER]',
-    photo: '[PHOTO_URL_PLACEHOLDER]',
-    phone: '[PHONE_NUMBER_PLACEHOLDER]',
-    email: 'vinushna@mavioglobal.com',
-    whatsapp: '[WHATSAPP_NUMBER_PLACEHOLDER]',
-    linkedin: '[LINKEDIN_URL_PLACEHOLDER]',
-    company: 'Mavio Global',
-    about: '[ABOUT_ME_PLACEHOLDER]',
-    
-    // UI specific fields for current design
-    initial: 'V',
-    gradient: 'from-purple-500 to-pink-500',
-    textColor: 'text-purple-600',
-    iconColor: 'text-purple-400',
-    btnColor: 'bg-purple-600 hover:bg-purple-700'
+    name: "VINUSHNA",
+    designation: "MARKETING HEAD",
+    bio: "",
+    profileImage: "/images/vinushna.jpg",
+    signatureImage: "",
+    phone: "+1234567890",
+    email: "vinushna@mavioglobal.com",
+    whatsapp: "+1234567890",
+    linkedin: "https://linkedin.com",
+    instagram: "https://instagram.com",
+    facebook: "",
+    twitter: "https://x.com",
+    youtube: "https://youtube.com",
+    website: "https://www.mavioglobal.com"
   },
+
   varshith: {
-    id: 'varshith',
-    name: 'Varshith',
-    designation: '[DESIGNATION_PLACEHOLDER]',
-    photo: '[PHOTO_URL_PLACEHOLDER]',
-    phone: '[PHONE_NUMBER_PLACEHOLDER]',
-    email: 'varshith@mavioglobal.com',
-    whatsapp: '[WHATSAPP_NUMBER_PLACEHOLDER]',
-    linkedin: '[LINKEDIN_URL_PLACEHOLDER]',
-    company: 'Mavio Global',
-    about: '[ABOUT_ME_PLACEHOLDER]',
-    
-    // UI specific fields for current design
-    initial: 'V',
-    gradient: 'from-emerald-500 to-teal-500',
-    textColor: 'text-emerald-600',
-    iconColor: 'text-emerald-400',
-    btnColor: 'bg-emerald-600 hover:bg-emerald-700'
+    name: "VARSHITH",
+    designation: "OPERATING EXECUTIVE",
+    bio: "",
+    profileImage: "/images/varshith.jpg",
+    signatureImage: "",
+    phone: "+1234567890",
+    email: "varshith@mavioglobal.com",
+    whatsapp: "+1234567890",
+    linkedin: "https://linkedin.com",
+    instagram: "https://instagram.com",
+    facebook: "",
+    twitter: "https://x.com",
+    youtube: "https://youtube.com",
+    website: "https://www.mavioglobal.com"
   }
 };

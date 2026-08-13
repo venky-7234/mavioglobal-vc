@@ -1,0 +1,178 @@
+.mvc-page {
+  min-height: 100vh;
+  background-color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  padding-bottom: 40px;
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.mvc-header {
+  height: 320px;
+  background-image: url('/vc/hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+
+.mvc-logo {
+  height: 168px;
+  object-fit: contain;
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .mvc-logo {
+    height: 224px;
+  }
+}
+
+.mvc-tagline-img {
+  height: 11px !important;
+  margin-top: 24px !important;
+  object-fit: contain;
+}
+
+.mvc-profile-container {
+  position: relative;
+  text-align: center;
+  margin-top: -90px;
+  z-index: 10;
+}
+
+.mvc-profile-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  object-fit: cover;
+  background-color: #dce1e8;
+  margin: 0 auto;
+  display: block;
+}
+
+.mvc-text-container {
+  text-align: center;
+  margin-top: 24px;
+  padding: 0 20px;
+}
+
+.mvc-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #081938;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.mvc-designation {
+  font-size: 18px;
+  color: #081938;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.mvc-social-float-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-items: center;
+  max-width: 320px;
+  margin: 40px auto;
+  padding: 0 10px;
+}
+
+@keyframes icon-dance {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.mvc-social-icon {
+  width: 52px;
+  height: 52px;
+  background-color: #081938;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  animation: icon-dance 3s ease-in-out infinite;
+}
+
+.mvc-social-icon:nth-child(even) { animation-delay: 0.5s; }
+.mvc-social-icon:nth-child(3n) { animation-delay: 1.2s; }
+.mvc-social-icon:nth-child(5n) { animation-delay: 0.8s; }
+
+.mvc-social-icon:hover {
+  animation: none;
+  transform: scale(1.1);
+  background-color: #0d2654;
+  box-shadow: 0 8px 16px rgba(8, 25, 56, 0.4);
+}
+
+.mvc-social-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.mvc-about-section {
+  max-width: 440px;
+  margin: 32px auto 0;
+  padding: 0 32px;
+  text-align: left;
+}
+
+.mvc-about-title {
+  font-size: 18px;
+  color: #081938;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.mvc-about-text {
+  font-size: 15px;
+  color: #222222;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.mvc-footer {
+  max-width: 440px;
+  margin: 40px auto 0;
+  padding: 0 24px;
+}
+
+.mvc-save-btn {
+  display: block;
+  width: 100%;
+  background: #081938;
+  color: #ffffff;
+  text-align: center;
+  padding: 16px;
+  border-radius: 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.mvc-save-btn:hover {
+  background: #0d2654;
+}
+
+.mvc-fade {
+  opacity: 0;
+}

@@ -1,13 +1,14 @@
 import React from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { profiles } from '../data/profiles';
-import VisitingCard from '../components/VisitingCard';
+import MavioVC from '../components/MavioVC';
 
 export default function Profile() {
   const { profile: profileId } = useParams();
-  const profile = profiles[profileId?.toLowerCase()];
+  const id = profileId?.toLowerCase();
+  const profileData = profiles[id];
 
-  if (!profile) {
+  if (!profileData) {
     return (
       <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-6 text-center">
         <h1 className="text-4xl font-bold mb-4">Profile Not Found</h1>
@@ -19,5 +20,7 @@ export default function Profile() {
     );
   }
 
-  return <VisitingCard profile={profile} />;
+  const profile = { ...profileData, id };
+
+  return <MavioVC profile={profile} />;
 }
