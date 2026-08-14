@@ -155,6 +155,17 @@
   font-weight: 400;
 }
 
+.mvc-signature-container {
+  margin-top: 24px;
+  text-align: left;
+}
+
+.mvc-signature-img {
+  max-width: 140px;
+  height: auto;
+  object-fit: contain;
+}
+
 .mvc-footer {
   max-width: 440px;
   margin: 40px auto 0;
