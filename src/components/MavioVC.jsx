@@ -134,34 +134,23 @@ export default function MavioVC({ profile }) {
 
       <footer className="mvc-footer">
         {(() => {
-          const vCardData = [
-            'BEGIN:VCARD',
-            'VERSION:3.0',
-            `N:${profile.name.split(' ').reverse().join(';')};;;`,
-            `FN:${profile.name}`,
-            'ORG:Mavio Global;',
-            `TITLE:${profile.designation}`,
-            profile.phone ? `TEL;TYPE=WORK,VOICE:${profile.phone}` : '',
-            profile.whatsapp ? `TEL;TYPE=CELL,VOICE:${profile.whatsapp}` : '',
-            profile.email ? `EMAIL;TYPE=WORK,INTERNET:${profile.email}` : '',
-            profile.website ? `URL:${profile.website}` : '',
-            'END:VCARD'
-          ].filter(Boolean).join('\r\n');
+          // VCard data generation removed as requested
 
           const isAndroid = /android/i.test(navigator.userAgent || navigator.vendor || window.opera);
           let linkHref = '';
 
           if (isAndroid) {
-            // Bare-bones Intent URL (no host) which is more universally parsed by Chrome
-            linkHref = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;`;
+            linkHref = `intent://vnd.android.cursor.dir/raw_contact/#Intent;action=android.intent.action.INSERT;`;
             linkHref += `S.name=${encodeURIComponent(profile.name)};`;
             linkHref += `S.company=${encodeURIComponent('Mavio Global')};`;
             if (profile.designation) linkHref += `S.job_title=${encodeURIComponent(profile.designation)};`;
             if (profile.phone) linkHref += `S.phone=${encodeURIComponent(profile.phone)};`;
             if (profile.email) linkHref += `S.email=${encodeURIComponent(profile.email)};`;
-            linkHref += `end`;
+            linkHref += `end;`;
           } else {
-            linkHref = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
+            // As requested, removed the .vcf download.
+            // Using a simple tel: link as a safe fallback for non-Android devices.
+            linkHref = profile.phone ? `tel:${profile.phone}` : '#';
           }
 
           return (
