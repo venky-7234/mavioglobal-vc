@@ -133,26 +133,85 @@ export default function MavioVC({ profile }) {
       </div>
 
       <footer className="mvc-footer">
-        <a href="#" onClick={(e) => {
-          e.preventDefault();
-          const vCardData = [
-            'BEGIN:VCARD',
-            'VERSION:3.0',
-            `N:${profile.name.split(' ').reverse().join(';')};;;`,
-            `FN:${profile.name}`,
-            `ORG:Mavio Global;`,
-            `TITLE:${profile.designation}`,
-            profile.phone ? `TEL;type=WORK;type=VOICE:${profile.phone}` : '',
-            profile.whatsapp ? `TEL;type=CELL;type=VOICE:${profile.whatsapp}` : '',
-            profile.email ? `EMAIL;type=WORK;type=INTERNET:${profile.email}` : '',
-            profile.website ? `URL:${profile.website}` : '',
-            'END:VCARD'
-          ].filter(Boolean).join('\n');
+        <button
+          type="button"
+          onClick={async () => {
+            const vCardData = [
+              'BEGIN:VCARD',
+              'VERSION:3.0',
+              `N:${profile.name.split(' ').reverse().join(';')};;;`,
+              `FN:${profile.name}`,
+              'ORG:Mavio Global;',
+              `TITLE:${profile.designation}`,
+              profile.phone
+                ? `TEL;TYPE=WORK,VOICE:${profile.phone}`
+                : '',
+              profile.whatsapp
+                ? `TEL;TYPE=CELL,VOICE:${profile.whatsapp}`
+                : '',
+              profile.email
+                ? `EMAIL;TYPE=WORK,INTERNET:${profile.email}`
+                : '',
+              profile.website
+                ? `URL:${profile.website}`
+                : '',
+              'END:VCARD'
+            ]
+              .filter(Boolean)
+              .join('\r\n');
 
-          // Using data URI often prompts the OS to handle the vCard immediately
-          // rather than silently downloading it to the background.
-          window.location.href = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
-        }} className="mvc-save-btn mvc-fade">Save Contact</a>
+            try {
+              const file = new File(
+                [vCardData],
+                `${profile.name.replace(/\s+/g, '_')}.vcf`,
+                {
+                  type: 'text/vcard'
+                }
+              );
+
+              // Preferred mobile flow
+              if (
+                navigator.share &&
+                navigator.canShare &&
+                navigator.canShare({ files: [file] })
+              ) {
+                await navigator.share({
+                  files: [file],
+                  title: `Save ${profile.name}`,
+                  text: `Save ${profile.name} to your contacts`
+                });
+
+                return;
+              }
+
+              // Fallback for browsers without file sharing
+              const blob = new Blob([vCardData], {
+                type: 'text/vcard;charset=utf-8'
+              });
+
+              const url = URL.createObjectURL(blob);
+
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = `${profile.name.replace(/\s+/g, '_')}.vcf`;
+
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+
+              URL.revokeObjectURL(url);
+
+            } catch (error) {
+              // User cancelled the native share sheet
+              if (error?.name !== 'AbortError') {
+                console.error('Save contact failed:', error);
+              }
+            }
+          }}
+          className="mvc-save-btn mvc-fade"
+        >
+          Save Contact
+        </button>
       </footer>
 
         </div>
