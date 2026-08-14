@@ -134,7 +134,19 @@ export default function MavioVC({ profile }) {
 
       <footer className="mvc-footer">
         {(() => {
-          // VCard data generation removed as requested
+          const vCardData = [
+            'BEGIN:VCARD',
+            'VERSION:3.0',
+            `N:${profile.name.split(' ').reverse().join(';')};;;`,
+            `FN:${profile.name}`,
+            'ORG:Mavio Global;',
+            `TITLE:${profile.designation}`,
+            profile.phone ? `TEL;TYPE=WORK,VOICE:${profile.phone}` : '',
+            profile.whatsapp ? `TEL;TYPE=CELL,VOICE:${profile.whatsapp}` : '',
+            profile.email ? `EMAIL;TYPE=WORK,INTERNET:${profile.email}` : '',
+            profile.website ? `URL:${profile.website}` : '',
+            'END:VCARD'
+          ].filter(Boolean).join('\r\n');
 
           const isAndroid = /android/i.test(navigator.userAgent || navigator.vendor || window.opera);
           let linkHref = '';
@@ -148,9 +160,8 @@ export default function MavioVC({ profile }) {
             if (profile.email) linkHref += `S.email=${encodeURIComponent(profile.email)};`;
             linkHref += `end;`;
           } else {
-            // As requested, removed the .vcf download.
-            // Using a simple tel: link as a safe fallback for non-Android devices.
-            linkHref = profile.phone ? `tel:${profile.phone}` : '#';
+            // iOS specifically handles data:text/vcard by opening the Contacts app natively, not downloading a file.
+            linkHref = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
           }
 
           return (
