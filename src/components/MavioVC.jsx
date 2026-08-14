@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import './MavioVC.css';
 
-const FallbackImage = ({ src, alt, className }) => {
+const FallbackImage = ({ src, alt, className, onClick, style }) => {
   const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
@@ -13,17 +13,18 @@ const FallbackImage = ({ src, alt, className }) => {
 
   if (error || !src) {
     return (
-      <div className={className} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className={className} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', ...(onClick ? { cursor: 'zoom-in' } : {}), ...style }} onClick={onClick}>
          <svg style={{ width: '64px', height: '64px', color: 'rgba(0,0,0,0.1)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
       </div>
     );
   }
-  return <img src={src} alt={alt} className={className} onError={() => setError(true)} />;
+  return <img src={src} alt={alt} className={className} onError={() => setError(true)} onClick={onClick} style={{ ...(onClick ? { cursor: 'zoom-in' } : {}), ...style }} />;
 };
 
 export default function MavioVC({ profile }) {
   const navigate = useNavigate();
   const containerRef = useRef(null);
+  const [modalImage, setModalImage] = React.useState(null);
   
   useGSAP(() => {
     // Basic fade in animation
@@ -64,7 +65,12 @@ export default function MavioVC({ profile }) {
 
       {/* Profile Info */}
       <div className="mvc-profile-container mvc-fade">
-        <FallbackImage src={profile.profileImage ? (profile.profileImage.startsWith('/') ? `${import.meta.env.BASE_URL}${profile.profileImage.slice(1)}` : profile.profileImage) : null} alt={profile.name} className="mvc-profile-img" />
+        <FallbackImage 
+          src={profile.profileImage ? (profile.profileImage.startsWith('/') ? `${import.meta.env.BASE_URL}${profile.profileImage.slice(1)}` : profile.profileImage) : null} 
+          alt={profile.name} 
+          className="mvc-profile-img" 
+          onClick={() => setModalImage(profile.profileImage ? (profile.profileImage.startsWith('/') ? `${import.meta.env.BASE_URL}${profile.profileImage.slice(1)}` : profile.profileImage) : null)}
+        />
       </div>
 
       <div className="mvc-text-container">
@@ -126,7 +132,12 @@ export default function MavioVC({ profile }) {
         </p>
         {profile.signatureImage && (
           <div className="mvc-signature-container">
-            <FallbackImage src={`${import.meta.env.BASE_URL}${profile.signatureImage.slice(1)}`} alt="Signature" className="mvc-signature-img" />
+            <FallbackImage 
+              src={`${import.meta.env.BASE_URL}${profile.signatureImage.slice(1)}`} 
+              alt="Signature" 
+              className="mvc-signature-img" 
+              onClick={() => setModalImage(`${import.meta.env.BASE_URL}${profile.signatureImage.slice(1)}`)}
+            />
           </div>
         )}
       </div>
@@ -205,6 +216,72 @@ export default function MavioVC({ profile }) {
 
         </div>
       </div>
+
+      {/* Full Image Modal */}
+      {modalImage && (
+        <div 
+          className="mvc-image-modal" 
+          onClick={() => setModalImage(null)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+            cursor: 'zoom-out'
+          }}
+        >
+          <div style={{ position: 'relative', maxWidth: '100%', maxHeight: '100%' }}>
+            <img 
+              src={modalImage} 
+              alt="Full size view" 
+              style={{ 
+                maxWidth: '100%', 
+                maxHeight: '90vh', 
+                objectFit: 'contain', 
+                borderRadius: '8px',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+                display: 'block'
+              }} 
+            />
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setModalImage(null);
+              }}
+              style={{
+                position: 'absolute',
+                top: '-15px',
+                right: '-15px',
+                background: '#ffffff',
+                border: 'none',
+                borderRadius: '50%',
+                width: '32px',
+                height: '32px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                color: '#081938',
+                fontSize: '16px',
+                fontWeight: 'bold',
+                lineHeight: 1
+              }}
+              aria-label="Close"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

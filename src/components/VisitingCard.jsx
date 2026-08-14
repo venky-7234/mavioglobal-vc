@@ -4,7 +4,7 @@ import heroBg from '../assets/hero.png';
 
 const profilesList = ['mahendra', 'vinushna', 'varshith'];
 
-const FallbackImage = ({ src, alt, className, type }) => {
+const FallbackImage = ({ src, alt, className, type, onClick, style }) => {
   const [error, setError] = React.useState(false);
 
   // Reset error when src changes
@@ -15,22 +15,22 @@ const FallbackImage = ({ src, alt, className, type }) => {
   if (error || !src) {
     if (type === 'portrait') {
       return (
-        <div className={className} style={{ backgroundColor: '#dce1e8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className={className} style={{ backgroundColor: '#dce1e8', display: 'flex', alignItems: 'center', justifyContent: 'center', ...(onClick ? { cursor: 'zoom-in' } : {}), ...style }} onClick={onClick}>
            <svg style={{ width: '64px', height: '64px', color: 'rgba(0,0,0,0.1)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
         </div>
       );
     }
     if (type === 'signature') {
       return (
-        <div className={className} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', opacity: 0.3 }}>
+        <div className={className} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', opacity: 0.3, ...(onClick ? { cursor: 'zoom-in' } : {}), ...style }} onClick={onClick}>
           <div style={{ height: '1px', width: '128px', background: 'linear-gradient(to right, rgba(255,255,255,0.4), transparent)' }}></div>
         </div>
       );
     }
-    return <div className={className} style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}></div>;
+    return <div className={className} style={{ backgroundColor: 'rgba(255,255,255,0.05)', ...(onClick ? { cursor: 'zoom-in' } : {}), ...style }} onClick={onClick}></div>;
   }
 
-  return <img src={src} alt={alt} className={className} onError={() => setError(true)} />;
+  return <img src={src} alt={alt} className={className} onError={() => setError(true)} onClick={onClick} style={{ ...(onClick ? { cursor: 'zoom-in' } : {}), ...style }} />;
 };
 
 const SocialIcon = ({ href, children }) => (
@@ -47,6 +47,7 @@ const SocialIcon = ({ href, children }) => (
 export default function VisitingCard({ profile }) {
   const navigate = useNavigate();
   const containerRef = useRef(null);
+  const [modalImage, setModalImage] = React.useState(null);
   
   // Intersection Observer for scroll animations
   useEffect(() => {
@@ -183,6 +184,7 @@ export default function VisitingCard({ profile }) {
                   src={profile.signatureImage} 
                   alt={`${profile.name} Signature`} 
                   type="signature"
+                  onClick={() => setModalImage(profile.signatureImage)}
                 />
               </div>
 
@@ -237,6 +239,7 @@ export default function VisitingCard({ profile }) {
               src={profile.profileImage} 
               alt={profile.name} 
               type="portrait"
+              onClick={() => setModalImage(profile.profileImage)}
             />
           </div>
 
@@ -335,6 +338,72 @@ export default function VisitingCard({ profile }) {
           </p>
         </div>
       </footer>
+
+      {/* Full Image Modal */}
+      {modalImage && (
+        <div 
+          className="vc-image-modal" 
+          onClick={() => setModalImage(null)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+            cursor: 'zoom-out'
+          }}
+        >
+          <div style={{ position: 'relative', maxWidth: '100%', maxHeight: '100%' }}>
+            <img 
+              src={modalImage} 
+              alt="Full size view" 
+              style={{ 
+                maxWidth: '100%', 
+                maxHeight: '90vh', 
+                objectFit: 'contain', 
+                borderRadius: '8px',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+                display: 'block'
+              }} 
+            />
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setModalImage(null);
+              }}
+              style={{
+                position: 'absolute',
+                top: '-15px',
+                right: '-15px',
+                background: '#ffffff',
+                border: 'none',
+                borderRadius: '50%',
+                width: '32px',
+                height: '32px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                color: '#081938',
+                fontSize: '16px',
+                fontWeight: 'bold',
+                lineHeight: 1
+              }}
+              aria-label="Close"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
