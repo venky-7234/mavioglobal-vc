@@ -149,24 +149,13 @@ export default function MavioVC({ profile }) {
           ].filter(Boolean).join('\r\n');
 
           const isAndroid = /android/i.test(navigator.userAgent || navigator.vendor || window.opera);
-          let linkHref = '';
-
-          if (isAndroid) {
-            linkHref = `intent://vnd.android.cursor.dir/raw_contact/#Intent;action=android.intent.action.INSERT;`;
-            linkHref += `S.name=${encodeURIComponent(profile.name)};`;
-            linkHref += `S.company=${encodeURIComponent('Mavio Global')};`;
-            if (profile.designation) linkHref += `S.job_title=${encodeURIComponent(profile.designation)};`;
-            if (profile.phone) linkHref += `S.phone=${encodeURIComponent(profile.phone)};`;
-            if (profile.email) linkHref += `S.email=${encodeURIComponent(profile.email)};`;
-            linkHref += `end;`;
-          } else {
-            // iOS specifically handles data:text/vcard by opening the Contacts app natively, not downloading a file.
-            linkHref = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
-          }
+          const vcardUrl = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
 
           return (
             <a
-              href={linkHref}
+              href={vcardUrl}
+              // Android requires downloading the .vcf file, iOS handles it natively without download
+              download={isAndroid ? `${profile.name.replace(/\s+/g, '_')}.vcf` : undefined}
               className="mvc-save-btn mvc-fade"
             >
               Save Contact
