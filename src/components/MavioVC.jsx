@@ -149,15 +149,9 @@ export default function MavioVC({ profile }) {
             'END:VCARD'
           ].filter(Boolean).join('\n');
 
-          const blob = new Blob([vCardData], { type: 'text/vcard' });
-          const url = window.URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href = url;
-          link.setAttribute('download', `${profile.name.replace(/\s+/g, '_')}.vcf`);
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          window.URL.revokeObjectURL(url);
+          // Using data URI often prompts the OS to handle the vCard immediately
+          // rather than silently downloading it to the background.
+          window.location.href = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
         }} className="mvc-save-btn mvc-fade">Save Contact</a>
       </footer>
 
