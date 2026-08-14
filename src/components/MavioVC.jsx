@@ -63,12 +63,12 @@ export default function MavioVC({ profile }) {
         <img src={`${import.meta.env.BASE_URL}template-tagline.svg`} alt="Excellence Beyond Borders" className="mvc-tagline-img mvc-fade" />
       </header>
 
-      {/* Profile Info */}
       <div className="mvc-profile-container mvc-fade">
         <FallbackImage 
           src={profile.profileImage ? (profile.profileImage.startsWith('/') ? `${import.meta.env.BASE_URL}${profile.profileImage.slice(1)}` : profile.profileImage) : null} 
           alt={profile.name} 
           className="mvc-profile-img" 
+          style={profile.imageStyle || {}}
           onClick={() => setModalImage(profile.profileImage ? (profile.profileImage.startsWith('/') ? `${import.meta.env.BASE_URL}${profile.profileImage.slice(1)}` : profile.profileImage) : null)}
         />
       </div>

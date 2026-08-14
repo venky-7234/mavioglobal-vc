@@ -239,6 +239,7 @@ export default function VisitingCard({ profile }) {
               src={profile.profileImage} 
               alt={profile.name} 
               type="portrait"
+              style={profile.imageStyle || {}}
               onClick={() => setModalImage(profile.profileImage)}
             />
           </div>
