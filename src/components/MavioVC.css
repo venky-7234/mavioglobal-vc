@@ -161,9 +161,10 @@
 }
 
 .mvc-signature-img {
-  max-width: 140px;
+  max-width: 220px;
   height: auto;
   object-fit: contain;
+  filter: contrast(160%) brightness(0.9);
 }
 
 .mvc-footer {
