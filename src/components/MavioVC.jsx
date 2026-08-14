@@ -152,7 +152,8 @@ export default function MavioVC({ profile }) {
           let linkHref = '';
 
           if (isAndroid) {
-            linkHref = `intent://contacts/people/#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;`;
+            // Bare-bones Intent URL (no host) which is more universally parsed by Chrome
+            linkHref = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;`;
             linkHref += `S.name=${encodeURIComponent(profile.name)};`;
             linkHref += `S.company=${encodeURIComponent('Mavio Global')};`;
             if (profile.designation) linkHref += `S.job_title=${encodeURIComponent(profile.designation)};`;
