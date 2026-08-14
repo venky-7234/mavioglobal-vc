@@ -145,6 +145,11 @@ export default function MavioVC({ profile }) {
             profile.whatsapp ? `TEL;TYPE=CELL,VOICE:${profile.whatsapp}` : '',
             profile.email ? `EMAIL;TYPE=WORK,INTERNET:${profile.email}` : '',
             profile.website ? `URL:${profile.website}` : '',
+            profile.linkedin ? `X-SOCIALPROFILE;type=linkedin:${profile.linkedin}` : '',
+            profile.instagram ? `X-SOCIALPROFILE;type=instagram:${profile.instagram}` : '',
+            profile.facebook ? `X-SOCIALPROFILE;type=facebook:${profile.facebook}` : '',
+            profile.twitter ? `X-SOCIALPROFILE;type=twitter:${profile.twitter}` : '',
+            profile.youtube ? `X-SOCIALPROFILE;type=youtube:${profile.youtube}` : '',
             'END:VCARD'
           ].filter(Boolean).join('\r\n');
 
