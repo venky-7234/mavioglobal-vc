@@ -97,12 +97,6 @@
   margin: 40px auto;
   padding: 0 10px;
 }
-
-@keyframes icon-dance {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-
 .mvc-social-icon {
   width: 52px;
   height: 52px;
@@ -114,15 +108,9 @@
   color: #ffffff;
   text-decoration: none;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-  animation: icon-dance 3s ease-in-out infinite;
 }
 
-.mvc-social-icon:nth-child(even) { animation-delay: 0.5s; }
-.mvc-social-icon:nth-child(3n) { animation-delay: 1.2s; }
-.mvc-social-icon:nth-child(5n) { animation-delay: 0.8s; }
-
 .mvc-social-icon:hover {
-  animation: none;
   transform: scale(1.1);
   background-color: #0d2654;
   box-shadow: 0 8px 16px rgba(8, 25, 56, 0.4);
