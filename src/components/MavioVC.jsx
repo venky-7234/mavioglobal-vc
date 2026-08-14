@@ -152,14 +152,13 @@ export default function MavioVC({ profile }) {
           let linkHref = '';
 
           if (isAndroid) {
-            linkHref = `intent://#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;`;
+            linkHref = `intent://contacts/people/#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;`;
             linkHref += `S.name=${encodeURIComponent(profile.name)};`;
             linkHref += `S.company=${encodeURIComponent('Mavio Global')};`;
             if (profile.designation) linkHref += `S.job_title=${encodeURIComponent(profile.designation)};`;
             if (profile.phone) linkHref += `S.phone=${encodeURIComponent(profile.phone)};`;
             if (profile.email) linkHref += `S.email=${encodeURIComponent(profile.email)};`;
-            // If intent fails, fall back to downloading the vCard
-            linkHref += `S.browser_fallback_url=${encodeURIComponent(`data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`)};end`;
+            linkHref += `end`;
           } else {
             linkHref = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
           }
