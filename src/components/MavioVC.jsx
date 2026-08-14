@@ -133,80 +133,48 @@ export default function MavioVC({ profile }) {
       </div>
 
       <footer className="mvc-footer">
-        <button
-          type="button"
-          onClick={async () => {
-            const vCardData = [
-              'BEGIN:VCARD',
-              'VERSION:3.0',
-              `N:${profile.name.split(' ').reverse().join(';')};;;`,
-              `FN:${profile.name}`,
-              'ORG:Mavio Global;',
-              `TITLE:${profile.designation}`,
-              profile.phone ? `TEL;TYPE=WORK,VOICE:${profile.phone}` : '',
-              profile.whatsapp ? `TEL;TYPE=CELL,VOICE:${profile.whatsapp}` : '',
-              profile.email ? `EMAIL;TYPE=WORK,INTERNET:${profile.email}` : '',
-              profile.website ? `URL:${profile.website}` : '',
-              'END:VCARD'
-            ].filter(Boolean).join('\r\n');
+        {(() => {
+          const vCardData = [
+            'BEGIN:VCARD',
+            'VERSION:3.0',
+            `N:${profile.name.split(' ').reverse().join(';')};;;`,
+            `FN:${profile.name}`,
+            'ORG:Mavio Global;',
+            `TITLE:${profile.designation}`,
+            profile.phone ? `TEL;TYPE=WORK,VOICE:${profile.phone}` : '',
+            profile.whatsapp ? `TEL;TYPE=CELL,VOICE:${profile.whatsapp}` : '',
+            profile.email ? `EMAIL;TYPE=WORK,INTERNET:${profile.email}` : '',
+            profile.website ? `URL:${profile.website}` : '',
+            'END:VCARD'
+          ].filter(Boolean).join('\r\n');
 
-            const isAndroid = /android/i.test(navigator.userAgent || navigator.vendor || window.opera);
+          const isAndroid = /android/i.test(navigator.userAgent || navigator.vendor || window.opera);
+          let linkHref = '';
 
-            // 1. Android: Use direct OS Intent to open Contacts app immediately (NO file download)
-            if (isAndroid) {
-              let intentStr = `intent://#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;`;
-              intentStr += `S.name=${encodeURIComponent(profile.name)};`;
-              intentStr += `S.company=${encodeURIComponent('Mavio Global')};`;
-              if (profile.designation) intentStr += `S.job_title=${encodeURIComponent(profile.designation)};`;
-              if (profile.phone) intentStr += `S.phone=${encodeURIComponent(profile.phone)};`;
-              if (profile.email) intentStr += `S.email=${encodeURIComponent(profile.email)};`;
-              intentStr += `S.browser_fallback_url=${encodeURIComponent(window.location.href)};end`;
-              
-              window.location.href = intentStr;
-              return;
-            }
+          if (isAndroid) {
+            linkHref = `intent://#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;`;
+            linkHref += `S.name=${encodeURIComponent(profile.name)};`;
+            linkHref += `S.company=${encodeURIComponent('Mavio Global')};`;
+            if (profile.designation) linkHref += `S.job_title=${encodeURIComponent(profile.designation)};`;
+            if (profile.phone) linkHref += `S.phone=${encodeURIComponent(profile.phone)};`;
+            if (profile.email) linkHref += `S.email=${encodeURIComponent(profile.email)};`;
+            // If intent fails, fall back to downloading the vCard
+            linkHref += `S.browser_fallback_url=${encodeURIComponent(`data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`)};end`;
+          } else {
+            linkHref = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
+          }
 
-            // 2. iOS & Others: Use Web Share API if supported, or data URI (iOS intercepts data URIs as native contacts)
-            try {
-              const file = new File(
-                [vCardData],
-                `${profile.name.replace(/\s+/g, '_')}.vcf`,
-                { type: 'text/vcard' }
-              );
-
-              let shared = false;
-
-              if (
-                navigator.share &&
-                navigator.canShare &&
-                navigator.canShare({ files: [file] })
-              ) {
-                try {
-                  await navigator.share({
-                    files: [file],
-                    title: `Save ${profile.name}`,
-                    text: `Save ${profile.name} to your contacts`
-                  });
-                  shared = true;
-                } catch (shareError) {
-                  if (shareError?.name === 'AbortError') {
-                    return;
-                  }
-                  console.error('Native share failed:', shareError);
-                }
-              }
-
-              if (!shared) {
-                window.location.href = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
-              }
-            } catch (error) {
-              console.error('Save contact failed:', error);
-            }
-          }}
-          className="mvc-save-btn mvc-fade"
-        >
-          Save Contact
-        </button>
+          return (
+            <a
+              href={linkHref}
+              className="mvc-save-btn mvc-fade"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Save Contact
+            </a>
+          );
+        })()}
       </footer>
 
         </div>
