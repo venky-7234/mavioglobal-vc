@@ -169,23 +169,25 @@ export default function MavioVC({ profile }) {
                 }
               );
 
-              if (
-                navigator.share &&
-                navigator.canShare &&
-                navigator.canShare({ files: [file] })
-              ) {
-                await navigator.share({
-                  files: [file],
-                  title: `Save ${profile.name}`,
-                  text: `Save ${profile.name} to your contacts`
-                });
-              } else {
-                // If the device/browser doesn't support file sharing, do nothing or alert
-                console.log("Web Share API for files is not supported on this browser.");
-                alert("Your browser does not support sharing contacts directly.");
+              if (!navigator.share) {
+                 alert("Your browser does not support the Web Share API.");
+                 return;
               }
+
+              if (navigator.canShare && !navigator.canShare({ files: [file] })) {
+                 alert("Your browser supports sharing, but does not allow sharing this specific file type (.vcf).");
+                 return;
+              }
+
+              await navigator.share({
+                files: [file],
+                title: `Save ${profile.name}`,
+                text: `Save ${profile.name} to your contacts`
+              });
+              
             } catch (error) {
               if (error?.name !== 'AbortError') {
+                alert(`Native share failed: ${error.name} - ${error.message}`);
                 console.error('Save contact failed:', error);
               }
             }
