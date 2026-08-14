@@ -35,7 +35,7 @@ export const profiles = {
   },
 
   varshith: {
-    name: "VARSHITH",
+    name: "VARSHITH RACHAPUDI",
     designation: "OPERATING EXECUTIVE",
     hideAboutTitle: true,
     bio: "I’m Varshith, Trade Operations Associate at Mavio Global. I handle sourcing, documentation, coordination, and execution, making sure requirements are clear and each stage stays organised. I work closely across the process to keep things moving smoothly and on time.",

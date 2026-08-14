@@ -167,15 +167,38 @@ export default function MavioVC({ profile }) {
           const isAndroid = /android/i.test(navigator.userAgent || navigator.vendor || window.opera);
           const vcardUrl = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
 
+          const handleShare = async () => {
+            const url = window.location.href;
+            if (navigator.share) {
+              try {
+                await navigator.share({
+                  title: `${profile.name} - Mavio Global`,
+                  text: `Check out ${profile.name}'s visiting card`,
+                  url: url,
+                });
+              } catch (error) {
+                console.error('Error sharing', error);
+              }
+            } else {
+              navigator.clipboard.writeText(url);
+              alert('Link copied to clipboard!');
+            }
+          };
+
           return (
-            <a
-              href={vcardUrl}
-              // Android requires downloading the .vcf file, iOS handles it natively without download
-              download={isAndroid ? `${profile.name.replace(/\s+/g, '_')}.vcf` : undefined}
-              className="mvc-save-btn mvc-fade"
-            >
-              Save Contact
-            </a>
+            <div className="mvc-footer-actions">
+              <a
+                href={vcardUrl}
+                // Android requires downloading the .vcf file, iOS handles it natively without download
+                download={isAndroid ? `${profile.name.replace(/\s+/g, '_')}.vcf` : undefined}
+                className="mvc-save-btn mvc-fade"
+              >
+                Save Contact
+              </a>
+              <button onClick={handleShare} className="mvc-share-btn mvc-fade">
+                Share Profile
+              </button>
+            </div>
           );
         })()}
       </footer>
