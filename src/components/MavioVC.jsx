@@ -169,43 +169,36 @@ export default function MavioVC({ profile }) {
                 }
               );
 
+              let shared = false;
+
               // Preferred mobile flow
               if (
                 navigator.share &&
                 navigator.canShare &&
                 navigator.canShare({ files: [file] })
               ) {
-                await navigator.share({
-                  files: [file],
-                  title: `Save ${profile.name}`,
-                  text: `Save ${profile.name} to your contacts`
-                });
-
-                return;
+                try {
+                  await navigator.share({
+                    files: [file],
+                    title: `Save ${profile.name}`,
+                    text: `Save ${profile.name} to your contacts`
+                  });
+                  shared = true;
+                } catch (shareError) {
+                  // If user cancelled, don't fallback. Otherwise, try fallback.
+                  if (shareError?.name === 'AbortError') {
+                    return;
+                  }
+                  console.error('Native share failed, falling back:', shareError);
+                }
               }
 
-              // Fallback for browsers without file sharing
-              const blob = new Blob([vCardData], {
-                type: 'text/vcard;charset=utf-8'
-              });
-
-              const url = URL.createObjectURL(blob);
-
-              const link = document.createElement('a');
-              link.href = url;
-              link.download = `${profile.name.replace(/\s+/g, '_')}.vcf`;
-
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-
-              URL.revokeObjectURL(url);
-
+              if (!shared) {
+                // Fallback: Using data URI often prompts the Android/iOS OS to handle the vCard immediately
+                window.location.href = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
+              }
             } catch (error) {
-              // User cancelled the native share sheet
-              if (error?.name !== 'AbortError') {
-                console.error('Save contact failed:', error);
-              }
+              console.error('Save contact failed:', error);
             }
           }}
           className="mvc-save-btn mvc-fade"
