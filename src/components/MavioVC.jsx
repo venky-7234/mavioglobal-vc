@@ -169,36 +169,25 @@ export default function MavioVC({ profile }) {
                 }
               );
 
-              let shared = false;
-
-              // Preferred mobile flow
               if (
                 navigator.share &&
                 navigator.canShare &&
                 navigator.canShare({ files: [file] })
               ) {
-                try {
-                  await navigator.share({
-                    files: [file],
-                    title: `Save ${profile.name}`,
-                    text: `Save ${profile.name} to your contacts`
-                  });
-                  shared = true;
-                } catch (shareError) {
-                  // If user cancelled, don't fallback. Otherwise, try fallback.
-                  if (shareError?.name === 'AbortError') {
-                    return;
-                  }
-                  console.error('Native share failed, falling back:', shareError);
-                }
-              }
-
-              if (!shared) {
-                // Fallback: Using data URI often prompts the Android/iOS OS to handle the vCard immediately
-                window.location.href = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
+                await navigator.share({
+                  files: [file],
+                  title: `Save ${profile.name}`,
+                  text: `Save ${profile.name} to your contacts`
+                });
+              } else {
+                // If the device/browser doesn't support file sharing, do nothing or alert
+                console.log("Web Share API for files is not supported on this browser.");
+                alert("Your browser does not support sharing contacts directly.");
               }
             } catch (error) {
-              console.error('Save contact failed:', error);
+              if (error?.name !== 'AbortError') {
+                console.error('Save contact failed:', error);
+              }
             }
           }}
           className="mvc-save-btn mvc-fade"
