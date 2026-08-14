@@ -37,7 +37,8 @@ export const profiles = {
   varshith: {
     name: "VARSHITH",
     designation: "OPERATING EXECUTIVE",
-    bio: "",
+    hideAboutTitle: true,
+    bio: "I’m Varshith, Trade Operations Associate at Mavio Global. I handle sourcing, documentation, coordination, and execution, making sure requirements are clear and each stage stays organised. I work closely across the process to keep things moving smoothly and on time.",
     profileImage: "/images/varshith.jpg",
     signatureImage: "",
     phone: "+919052688488",
