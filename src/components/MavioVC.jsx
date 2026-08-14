@@ -133,7 +133,32 @@ export default function MavioVC({ profile }) {
       </div>
 
       <footer className="mvc-footer">
-        <a href="#" className="mvc-save-btn mvc-fade">Save Contact</a>
+        <a href="#" onClick={(e) => {
+          e.preventDefault();
+          const vCardData = [
+            'BEGIN:VCARD',
+            'VERSION:3.0',
+            `N:${profile.name.split(' ').reverse().join(';')};;;`,
+            `FN:${profile.name}`,
+            `ORG:Mavio Global;`,
+            `TITLE:${profile.designation}`,
+            profile.phone ? `TEL;type=WORK;type=VOICE:${profile.phone}` : '',
+            profile.whatsapp ? `TEL;type=CELL;type=VOICE:${profile.whatsapp}` : '',
+            profile.email ? `EMAIL;type=WORK;type=INTERNET:${profile.email}` : '',
+            profile.website ? `URL:${profile.website}` : '',
+            'END:VCARD'
+          ].filter(Boolean).join('\n');
+
+          const blob = new Blob([vCardData], { type: 'text/vcard' });
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', `${profile.name.replace(/\s+/g, '_')}.vcf`);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+        }} className="mvc-save-btn mvc-fade">Save Contact</a>
       </footer>
 
         </div>
