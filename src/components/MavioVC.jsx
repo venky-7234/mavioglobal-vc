@@ -169,27 +169,36 @@ export default function MavioVC({ profile }) {
                 }
               );
 
-              if (!navigator.share) {
-                 alert("Your browser does not support the Web Share API.");
-                 return;
+              let shared = false;
+
+              // Preferred mobile flow (iOS / Supported Android)
+              if (
+                navigator.share &&
+                navigator.canShare &&
+                navigator.canShare({ files: [file] })
+              ) {
+                try {
+                  await navigator.share({
+                    files: [file],
+                    title: `Save ${profile.name}`,
+                    text: `Save ${profile.name} to your contacts`
+                  });
+                  shared = true;
+                } catch (shareError) {
+                  if (shareError?.name === 'AbortError') {
+                    return;
+                  }
+                  console.error('Native share failed:', shareError);
+                }
               }
 
-              if (navigator.canShare && !navigator.canShare({ files: [file] })) {
-                 alert("Your browser supports sharing, but does not allow sharing this specific file type (.vcf).");
-                 return;
+              // Instant navigation fallback for unsupported browsers/OS (like Android Chrome)
+              if (!shared) {
+                window.location.href = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
               }
-
-              await navigator.share({
-                files: [file],
-                title: `Save ${profile.name}`,
-                text: `Save ${profile.name} to your contacts`
-              });
               
             } catch (error) {
-              if (error?.name !== 'AbortError') {
-                alert(`Native share failed: ${error.name} - ${error.message}`);
-                console.error('Save contact failed:', error);
-              }
+              console.error('Save contact failed:', error);
             }
           }}
           className="mvc-save-btn mvc-fade"
