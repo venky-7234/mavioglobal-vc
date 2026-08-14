@@ -2,7 +2,7 @@ export const profiles = {
   mahendra: {
     name: "MAHENDRA REDDY",
     designation: "FOUNDER & CEO",
-    bio: "",
+    bio: "I’m Mahendra Reddy, Founder & CEO of Mavio Global. My experience in global trade has taught me that good work often comes down to getting the small things right, even when they’re easy to overlook. I bring that approach into Mavio Global as we continue to grow across global markets.",
     profileImage: "/images/mahendra.jpg",
     signatureImage: "",
     phone: "+919052688188",
