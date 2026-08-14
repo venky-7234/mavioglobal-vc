@@ -168,8 +168,6 @@ export default function MavioVC({ profile }) {
             <a
               href={linkHref}
               className="mvc-save-btn mvc-fade"
-              target="_blank"
-              rel="noopener noreferrer"
             >
               Save Contact
             </a>
