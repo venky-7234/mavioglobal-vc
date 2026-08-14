@@ -36,9 +36,15 @@
 }
 
 .mvc-tagline-img {
-  height: 28px !important;
+  height: 18px !important;
   margin-top: -36px !important;
   object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .mvc-tagline-img {
+    height: 24px !important;
+  }
 }
 
 .mvc-profile-container {
