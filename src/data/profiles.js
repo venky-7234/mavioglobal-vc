@@ -51,5 +51,24 @@ export const profiles = {
     twitter: "https://x.com",
     youtube: "https://youtube.com",
     website: "https://www.mavioglobal.com"
+  },
+
+  companyprofile: {
+    name: "MAVIO GLOBAL",
+    designation: "EXCELLENCE BEYOND BORDERS",
+    hideAboutTitle: true,
+    bio: "Mavio Global is a global trade company built around quality, visibility, and reliable execution. We stay closely involved from origin to destination, keeping every stage clear, connected, and on track.",
+    profileImage: "/logo-without-tagline.svg",
+    imageStyle: { objectFit: 'contain', padding: '2rem' },
+    signatureImage: "",
+    phone: "",
+    email: "info@mavioglobal.com",
+    whatsapp: "",
+    linkedin: "https://www.linkedin.com/company/mavioglobal",
+    instagram: "https://www.instagram.com/mavioglobal",
+    facebook: "",
+    twitter: "https://twitter.com/mavioglobal",
+    youtube: "",
+    website: "https://www.mavioglobal.com"
   }
 };
