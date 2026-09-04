@@ -268,3 +268,58 @@ body {
   display: block;
 }
 
+.mvc-map-section {
+  max-width: 440px;
+  margin: 40px auto 40px;
+}
+
+.mvc-map-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  margin-top: 16px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  /* Disable pointer events so map is locked and blinker stays fixed */
+  pointer-events: none;
+}
+
+.mvc-map-blinker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background-color: #081938;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.mvc-map-blinker::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background-color: rgba(8, 25, 56, 0.4);
+  animation: pulse 1.5s ease-out infinite;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
