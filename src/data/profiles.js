@@ -3,7 +3,7 @@ export const profiles = {
     name: "MAHENDRA REDDY",
     designation: "FOUNDER & CEO",
     hideAboutTitle: true,
-    bio: "<span style=\"font-size: 1.1em; letter-spacing: 0.05em; font-weight: 900; color: #081938;\">GLAD TO CONNECT</span><br/><br/>Years on the ground in exports taught me what most platforms miss the buyer's hesitation , the supplier's grind, the trust gap in between...That experience became a mission : build a trade platform powered by digital intelligence, where transparancy isn't feature it's the foundation...Because before a buyer trusts a transaction,they need to trust the process. That's the business I am building one relationship, one relationship, one shipment, one milestone at a time",
+    bio: "<span style=\"font-size: 1.1em; letter-spacing: 0.05em; font-weight: 900; color: #081938;\">GLAD TO CONNECT</span><br/><br/>My journey through global trade taught me where the industry could do better.<br/><br/>Those experiences became ideas, and those ideas became a vision.<br/><br/>Today, I am building technology around the realities of people who trade.<br/><br/>Not to change trade overnight, but to build what comes next.",
     profileImage: "/images/mahendra.png",
     imageStyle: { objectFit: 'contain', transform: 'scale(1.35) translateY(10%)' },
     signatureImage: "",
