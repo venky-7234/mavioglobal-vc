@@ -336,7 +336,7 @@ export default function MavioVC({ profile }) {
               WebkitOverflowScrolling: 'touch'
             }}
           >
-            {galleryImages.map((src, i) => (
+            {Array(30).fill(galleryImages).flat().map((src, i) => (
               <div 
                 key={i} 
                 style={{ 
@@ -350,9 +350,11 @@ export default function MavioVC({ profile }) {
                   padding: '20px'
                 }}
                 ref={el => {
-                  if (el && i === modalIndex && !el.dataset.scrolled) {
+                  // We center them at the 15th repetition so they can scroll endlessly in both directions
+                  const targetIndex = 15 * galleryImages.length + modalIndex;
+                  if (el && i === targetIndex && !el.dataset.scrolled) {
                     el.scrollIntoView();
-                    el.dataset.scrolled = "true"; // Ensure it only scrolls into view once on mount
+                    el.dataset.scrolled = "true";
                   }
                 }}
               >

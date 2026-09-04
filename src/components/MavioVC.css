@@ -145,10 +145,12 @@ body {
 }
 
 .mvc-about-title {
-  font-size: 18px;
+  font-size: 1.1em;
   color: #081938;
   margin-bottom: 8px;
-  font-weight: 700;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .mvc-about-text {
@@ -236,7 +238,7 @@ body {
   display: flex;
   gap: 16px;
   width: max-content;
-  animation: scrollMarquee 15s linear infinite;
+  animation: scrollMarquee 25s linear infinite;
 }
 
 .mvc-gallery-track:hover {
