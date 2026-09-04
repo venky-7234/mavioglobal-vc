@@ -1,7 +1,7 @@
 export const profiles = {
   mahendra: {
     name: "MAHENDRA REDDY",
-    designation: "FOUNDER & CEO",
+    designation: "FOUNDER & CEO,MAVIO GLOBAL",
     hideAboutTitle: true,
     bio: "<div class=\"mvc-about-title\">GLAD TO CONNECT</div>My journey through global trade taught me where the industry could do better. Those experiences became ideas, and those ideas became a vision. Today, I am building technology around the realities of people who trade. Not to change trade overnight, but to build what comes next.",
     profileImage: "/images/mahendra.png",
@@ -38,7 +38,7 @@ export const profiles = {
 
   varshith: {
     name: "VARSHITH RACHAPUDI",
-    designation: "OPERATING EXECUTIVE",
+    designation: "OPERATIONS , MAVIO GLOBAL",
     hideAboutTitle: true,
     bio: "<div class=\"mvc-about-title\">GLAD TO CONNECT</div>Trade is won in the details documentation,timeless,coordination the parts no one sees but everyone depends on. My obsession is simple:every shipment moves exactly as promised, from origin to delivery.Because behind every trusted transaction is an operation that never misses a step",
     
