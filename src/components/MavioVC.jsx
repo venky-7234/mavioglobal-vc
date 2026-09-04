@@ -224,19 +224,21 @@ export default function MavioVC({ profile }) {
       {/* Map Section */}
       <div className="mvc-map-section mvc-fade">
         <h3 className="mvc-about-title" style={{ padding: '0 32px' }}>Our Location</h3>
-        <div className="mvc-map-container">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.604245642436!2d78.4744!3d17.3850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99daeaebd2c7%3A0xae93b78392bafbc2!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen="" 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Mavio Global Location"
-          ></iframe>
-          <div className="mvc-map-blinker"></div>
-        </div>
+        <a href="https://maps.app.goo.gl/UtM9UfG8w9TAKcn18?g_st=aw" target="_blank" rel="noopener noreferrer" style={{ display: 'block' }}>
+          <div className="mvc-map-container">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.604245642436!2d78.4744!3d17.3850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99daeaebd2c7%3A0xae93b78392bafbc2!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen="" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Mavio Global Location"
+            ></iframe>
+            <div className="mvc-map-blinker"></div>
+          </div>
+        </a>
       </div>
 
       <footer className="mvc-footer">
