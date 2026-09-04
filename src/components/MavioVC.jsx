@@ -193,8 +193,9 @@ export default function MavioVC({ profile }) {
       <div className="mvc-about-section mvc-fade">
         <h3 className="mvc-about-title">About Mavio</h3>
         <p className="mvc-about-text" style={{ whiteSpace: "pre-line" }}>
-          We didn’t start with products. We started with a problem.{"\n"}
-          Mavio Global is a global trade company built around quality, visibility, and reliable execution. We stay closely involved from origin to destination, keeping every stage clear, connected, and on track…{" "}
+          Imports & exports has always run on relationships, paperwork, and patience. We're building the next chapter powered by digital intelligence, designed for simplified trade.{"\n\n"}
+          Every shipment, every milestone, tracked in real time. Every buyer, informed and confident before a single transaction.{"\n\n"}
+          This is trade, made transparent.{" "}
           <a href={profile.website || "https://www.mavioglobal.com"} target="_blank" rel="noopener noreferrer" style={{ color: "#081938", fontWeight: "bold", textDecoration: "none" }}>
             know more...
           </a>
