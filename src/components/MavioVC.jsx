@@ -27,17 +27,6 @@ export default function MavioVC({ profile }) {
   const [modalImage, setModalImage] = React.useState(null);
   
   useGSAP(() => {
-    // Basic fade in animation
-    gsap.set('.mvc-fade', { opacity: 0, y: 15 });
-    
-    gsap.to('.mvc-fade', {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power2.out'
-    });
-
     // Initialize ScrollSmoother if loaded from CDN
     if (window.ScrollSmoother && window.ScrollTrigger && window.gsap) {
       window.gsap.registerPlugin(window.ScrollTrigger, window.ScrollSmoother);
@@ -47,6 +36,59 @@ export default function MavioVC({ profile }) {
         smooth: 1.5,
         effects: true
       });
+    }
+
+    // Ensure ScrollTrigger is available
+    const ST = window.ScrollTrigger || gsap.plugins.ScrollTrigger;
+    if (ST) {
+      gsap.registerPlugin(ST);
+
+      // Fade in elements as they scroll into view
+      gsap.utils.toArray('.mvc-fade').forEach(elem => {
+        // Skip gallery scroll container itself to let items animate individually
+        if (elem.classList.contains('mvc-gallery-scroll')) return;
+        
+        gsap.fromTo(elem, 
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1, 
+            y: 0, 
+            duration: 0.8, 
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: elem,
+              start: "top 95%", // Trigger slightly lower so it definitely fires
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      // Specific animation for the gallery items
+      gsap.utils.toArray('.mvc-gallery-item').forEach((item, i) => {
+        gsap.fromTo(item,
+          { scale: 0.9, opacity: 0, y: 30 },
+          {
+            scale: 1,
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: i * 0.15,
+            ease: 'back.out(1.5)',
+            scrollTrigger: {
+              trigger: '.mvc-gallery-scroll',
+              start: "top 95%", // Ensure it triggers when it enters the viewport
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+    } else {
+      // Fallback if ScrollTrigger is not ready
+      gsap.set('.mvc-fade', { opacity: 0, y: 15 });
+      gsap.to('.mvc-fade', { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' });
+      gsap.set('.mvc-gallery-item', { opacity: 0, scale: 0.8 });
+      gsap.to('.mvc-gallery-item', { opacity: 1, scale: 1, duration: 0.8, stagger: 0.1, ease: 'back.out(1.5)' });
     }
   }, { scope: containerRef, dependencies: [profile] });
 
@@ -127,9 +169,7 @@ export default function MavioVC({ profile }) {
         {!profile.hideAboutTitle && (
           <h3 className="mvc-about-title">{profile.aboutTitle || "About"}</h3>
         )}
-        <p className="mvc-about-text">
-          {profile.bio || "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi."}
-        </p>
+        <p className="mvc-about-text" dangerouslySetInnerHTML={{ __html: profile.bio || "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi." }} />
         {profile.signatureImage && (
           <div className="mvc-signature-container">
             <FallbackImage 
@@ -152,6 +192,19 @@ export default function MavioVC({ profile }) {
             know more...
           </a>
         </p>
+      </div>
+
+      {/* Image Gallery */}
+      <div className="mvc-gallery-scroll">
+        <div className="mvc-gallery-item">
+          <FallbackImage src={`${import.meta.env.BASE_URL}images/ops1.jpg`} alt="Operations 1" onClick={() => setModalImage(`${import.meta.env.BASE_URL}images/ops1.jpg`)} />
+        </div>
+        <div className="mvc-gallery-item">
+          <FallbackImage src={`${import.meta.env.BASE_URL}images/ops2.jpg`} alt="Operations 2" onClick={() => setModalImage(`${import.meta.env.BASE_URL}images/ops2.jpg`)} />
+        </div>
+        <div className="mvc-gallery-item">
+          <FallbackImage src={`${import.meta.env.BASE_URL}images/ops3.jpg`} alt="Operations 3" onClick={() => setModalImage(`${import.meta.env.BASE_URL}images/ops3.jpg`)} />
+        </div>
       </div>
 
       <footer className="mvc-footer">
