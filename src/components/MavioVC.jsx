@@ -21,9 +21,16 @@ const FallbackImage = ({ src, alt, className, onClick, style }) => {
   return <img src={src} alt={alt} className={className} onError={() => setError(true)} onClick={onClick} style={{ ...(onClick ? { cursor: 'zoom-in' } : {}), ...style }} />;
 };
 
+const galleryImages = [
+  `${import.meta.env.BASE_URL}images/ops1.jpg`,
+  `${import.meta.env.BASE_URL}images/ops2.jpg`,
+  `${import.meta.env.BASE_URL}images/ops3.jpg`
+];
+
 export default function MavioVC({ profile }) {
   const navigate = useNavigate();
   const containerRef = useRef(null);
+  const [modalIndex, setModalIndex] = React.useState(null);
   const [modalImage, setModalImage] = React.useState(null);
   
   useGSAP(() => {
@@ -76,7 +83,7 @@ export default function MavioVC({ profile }) {
             delay: i * 0.15,
             ease: 'back.out(1.5)',
             scrollTrigger: {
-              trigger: '.mvc-gallery-scroll',
+              trigger: '.mvc-gallery-wrapper',
               start: "top 95%", // Ensure it triggers when it enters the viewport
               toggleActions: "play none none reverse"
             }
@@ -195,15 +202,21 @@ export default function MavioVC({ profile }) {
       </div>
 
       {/* Image Gallery */}
-      <div className="mvc-gallery-scroll">
-        <div className="mvc-gallery-item">
-          <FallbackImage src={`${import.meta.env.BASE_URL}images/ops1.jpg`} alt="Operations 1" onClick={() => setModalImage(`${import.meta.env.BASE_URL}images/ops1.jpg`)} />
-        </div>
-        <div className="mvc-gallery-item">
-          <FallbackImage src={`${import.meta.env.BASE_URL}images/ops2.jpg`} alt="Operations 2" onClick={() => setModalImage(`${import.meta.env.BASE_URL}images/ops2.jpg`)} />
-        </div>
-        <div className="mvc-gallery-item">
-          <FallbackImage src={`${import.meta.env.BASE_URL}images/ops3.jpg`} alt="Operations 3" onClick={() => setModalImage(`${import.meta.env.BASE_URL}images/ops3.jpg`)} />
+      <div className="mvc-gallery-wrapper">
+        <div className="mvc-gallery-track">
+          {/* Render two sets of images to enable seamless continuous scrolling */}
+          {[...galleryImages, ...galleryImages].map((src, idx) => {
+            const originalIndex = idx % galleryImages.length;
+            return (
+              <div className="mvc-gallery-item" key={idx}>
+                <FallbackImage 
+                  src={src} 
+                  alt={`Operations ${originalIndex + 1}`} 
+                  onClick={() => setModalIndex(originalIndex)} 
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -253,7 +266,6 @@ export default function MavioVC({ profile }) {
             <div className="mvc-footer-actions">
               <a
                 href={vcardUrl}
-                // Android requires downloading the .vcf file, iOS handles it natively without download
                 download={isAndroid ? `${profile.name.replace(/\s+/g, '_')}.vcf` : undefined}
                 className="mvc-save-btn mvc-fade"
               >
@@ -270,7 +282,99 @@ export default function MavioVC({ profile }) {
         </div>
       </div>
 
-      {/* Full Image Modal */}
+      {/* Full Image Modal for Gallery */}
+      {modalIndex !== null && (
+        <div 
+          className="mvc-image-modal" 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.95)',
+            zIndex: 9999,
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <button 
+            onClick={() => setModalIndex(null)}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '20px',
+              background: '#ffffff',
+              border: 'none',
+              borderRadius: '50%',
+              width: '40px',
+              height: '40px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+              color: '#081938',
+              fontSize: '20px',
+              fontWeight: 'bold',
+              lineHeight: 1,
+              zIndex: 10000
+            }}
+            aria-label="Close"
+          >
+            ✕
+          </button>
+          
+          <div 
+            style={{ 
+              display: 'flex', 
+              overflowX: 'auto', 
+              scrollSnapType: 'x mandatory', 
+              width: '100%', 
+              height: '100%',
+              scrollbarWidth: 'none',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
+            {galleryImages.map((src, i) => (
+              <div 
+                key={i} 
+                style={{ 
+                  flex: '0 0 100%', 
+                  width: '100%', 
+                  height: '100%', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  scrollSnapAlign: 'start',
+                  padding: '20px'
+                }}
+                ref={el => {
+                  if (el && i === modalIndex && !el.dataset.scrolled) {
+                    el.scrollIntoView();
+                    el.dataset.scrolled = "true"; // Ensure it only scrolls into view once on mount
+                  }
+                }}
+              >
+                <img 
+                  src={src} 
+                  alt={`Full size ${i + 1}`} 
+                  style={{ 
+                    maxWidth: '100%', 
+                    maxHeight: '100%', 
+                    objectFit: 'contain', 
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+                    display: 'block'
+                  }} 
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Full Image Modal for Single Images (Profile/Signature) */}
       {modalImage && (
         <div 
           className="mvc-image-modal" 
