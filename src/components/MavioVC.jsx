@@ -111,7 +111,7 @@ export default function MavioVC({ profile }) {
       
           {/* Header */}
       <header className="mvc-header">
-        <img src={`${import.meta.env.BASE_URL}logo-without-tagline.svg`} alt="Mavio Global" className="mvc-logo mvc-fade" />
+        <img src={['mahendra', 'vinushna', 'varshith'].includes(profile.id) ? `${import.meta.env.BASE_URL}images/SVG_Logo-01.svg` : `${import.meta.env.BASE_URL}logo-without-tagline.svg`} alt="Mavio Global" className="mvc-logo mvc-fade" />
         <img src={`${import.meta.env.BASE_URL}template-tagline.svg`} alt="Excellence Beyond Borders" className="mvc-tagline-img mvc-fade" />
       </header>
 
