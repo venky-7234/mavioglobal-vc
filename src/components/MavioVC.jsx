@@ -191,7 +191,7 @@ export default function MavioVC({ profile }) {
 
       {/* Company About Section */}
       <div className="mvc-about-section mvc-fade">
-        <h3 className="mvc-about-title">About Mavio</h3>
+        <h3 className="mvc-about-title">THE MAVIO STORY</h3>
         <p className="mvc-about-text" style={{ whiteSpace: "pre-line" }}>
           Imports & exports has always run on relationships, paperwork, and patience. We're building the next chapter powered by digital intelligence, designed for simplified trade.{"\n\n"}
           Every shipment, every milestone, tracked in real time. Every buyer, informed and confident before a single transaction.{"\n\n"}
@@ -223,7 +223,7 @@ export default function MavioVC({ profile }) {
 
       {/* Map Section */}
       <div className="mvc-map-section mvc-fade">
-        <h3 className="mvc-about-title" style={{ padding: '0 32px' }}>Our Location</h3>
+        <h3 className="mvc-about-title" style={{ padding: '0 32px' }}>FIND US</h3>
         <a href="https://maps.app.goo.gl/UtM9UfG8w9TAKcn18?g_st=aw" target="_blank" rel="noopener noreferrer" style={{ display: 'block' }}>
           <div className="mvc-map-container">
             <iframe 
