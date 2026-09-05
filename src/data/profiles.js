@@ -3,7 +3,7 @@ export const profiles = {
     name: "MAHENDRA REDDY",
     designation: "FOUNDER & CEO",
     hideAboutTitle: true,
-    bio: "<div class=\"mvc-about-title\">GLAD TO CONNECT</div><br/>My journey through global trade taught me where the industry could do better. Those experiences became ideas, and those ideas became a vision. Today, I am building technology around the realities of people who trade. Not to change trade overnight, but to build what comes next.",
+    bio: "<div class=\"mvc-about-title\">GLAD TO CONNECT</div><br/>My journey through global trade taught me where the industry could do better. Those experiences became ideas, and those ideas became a vision.<br/>Today, I am building technology around the realities of people who trade. Not to change trade overnight, but to build what comes next.",
     profileImage: "/images/mahendra.png",
     imageStyle: { objectFit: 'contain', transform: 'scale(1.35) translateY(10%)' },
     signatureImage: "",

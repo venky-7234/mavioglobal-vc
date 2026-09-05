@@ -145,9 +145,9 @@ body {
 }
 
 .mvc-about-title {
-  font-size: 1.1em;
+  font-size: 17px;
   color: #081938;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
   font-weight: 900;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -158,6 +158,23 @@ body {
   color: #222222;
   line-height: 1.4;
   font-weight: 400;
+}
+
+@media (max-width: 480px) {
+  .mvc-about-section {
+    padding: 0 24px;
+    margin: 24px auto 0;
+  }
+
+  .mvc-about-title {
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+
+  .mvc-about-text {
+    font-size: 14px;
+    line-height: 1.4;
+  }
 }
 
 .mvc-signature-container {

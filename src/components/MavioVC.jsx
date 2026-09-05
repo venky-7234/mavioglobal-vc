@@ -22,6 +22,9 @@ const FallbackImage = ({ src, alt, className, onClick, style }) => {
 };
 
 const galleryImages = [
+  `${import.meta.env.BASE_URL}images/ops-ship.avif`,
+  `${import.meta.env.BASE_URL}images/ops0.jpg`,
+  `${import.meta.env.BASE_URL}images/ops-w1.jpg`,
   `${import.meta.env.BASE_URL}images/ops1.jpg`,
   `${import.meta.env.BASE_URL}images/ops2.jpg`,
   `${import.meta.env.BASE_URL}images/ops3.jpg`
