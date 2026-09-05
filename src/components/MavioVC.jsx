@@ -193,8 +193,8 @@ export default function MavioVC({ profile }) {
       <div className="mvc-about-section mvc-fade">
         <h3 className="mvc-about-title">THE MAVIO STORY</h3>
         <p className="mvc-about-text" style={{ whiteSpace: "pre-line" }}>
-          Imports & exports has always run on relationships, paperwork, and patience. We're building the next chapter powered by digital intelligence, designed for simplified trade.{"\n\n"}
-          Every shipment, every milestone, tracked in real time. Every buyer, informed and confident before a single transaction.{"\n\n"}
+          Imports & exports has always run on relationships, paperwork, and patience. We're building the next chapter powered by digital intelligence, designed for simplified trade.{"\n"}
+          Every shipment, every milestone, tracked in real time. Every buyer, informed and confident before a single transaction.{"\n"}
           This is trade, made transparent.{" "}
           <a href={profile.website || "https://www.mavioglobal.com"} target="_blank" rel="noopener noreferrer" style={{ color: "#081938", fontWeight: "bold", textDecoration: "none" }}>
             know more...
