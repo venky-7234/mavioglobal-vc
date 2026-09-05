@@ -23,7 +23,7 @@ export const profiles = {
     designation: "GLOBAL MARKETING HEAD",
     hideAboutTitle: true,
     bio: "<div class=\"mvc-about-title\">GLAD TO CONNECT</div>Today, I connect people, markets, and opportunities across global trade.<br/>What begins as a conversation, I strive to shape into lasting trust.<br/>Because every transaction has an end; a good partnership does not.<br/>The deal is the beginning. The relationship is the real work.",
-    profileImage: "/images/vinushna.jpg",
+    profileImage: "/images/vinushna profile picture.jpeg",
     signatureImage: "",
     phone: "+919052688288",
     email: "vinsuhna@mavioglobal.com",
